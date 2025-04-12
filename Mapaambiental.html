@@ -1,135 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>precipitaciones y elevacionBA</title>
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<base target="_blank">
-<link rel="stylesheet" type="text/css" href="./Qgis2threejs.css">
-<style type="text/css">
-#popup, #header, #layerpanel {
-  left: 36px;
-}
-</style>
-<script src="./threejs/three.min.js"></script>
-<script src="./threejs/OrbitControls.js"></script>
-<script src="./threejs/ViewHelper.js"></script>
-<script src="./Qgis2threejs.js"></script>
+  <meta charset="UTF-8">
+  <title>Precipitaciones y Elevacion BA</title>
+  <link rel="icon" type="image/png" href="Qgis2threejs.png" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <base target="_blank">
+  <link rel="stylesheet" type="text/css" href="./Qgis2threejs.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./estilos_marcos.css">
+
+  <script src="./threejs/three.min.js"></script>
+  <script src="./threejs/OrbitControls.js"></script>
+  <script src="./threejs/ViewHelper.js"></script>
+  <script src="./Qgis2threejs.js"></script>
 </head>
 <body>
-<div id="view">
-  <div id="northarrow"></div>
-  <div id="navigation"></div>
-</div>
+  <!-- El mapa -->
+  <div id="view">
+    <div id="northarrow"></div>
+    <div id="navigation"></div>
+  </div>
 
-<!-- popup -->
-<div id="popup">
-  <div id="closebtn">&times;</div>
-  <div id="popupbar"></div>
-  <div id="popupbody">
-    <div id="popupcontent"></div>
+  <!-- popup -->
+  <div id="popup">
+    <div id="closebtn">&times;</div>
+    <div id="popupbar"></div>
+    <div id="popupbody">
+      <div id="popupcontent"></div>
 
-    <!-- query result -->
-    <div id="queryresult">
-      <table id="qr_coords_table">
-        <caption>Clicked coordinates <div id="zoomtopoint" class="action-zoom zoombtn"></div></caption>
-        <tr><td id="qr_coords"></td></tr>
-      </table>
+      <!-- resultado de consulta -->
+      <div id="queryresult">
+        <table class="table" id="qr_coords_table">
+          <caption>Coordenadas seleccionadas <div id="zoomtopoint" class="action-zoom zoombtn"></div></caption>
+          <tr><td id="qr_coords"></td></tr>
+        </table>
 
-      <table id="qr_layername_table">
-        <caption>Layer <div id="zoomtolayer" class="action-zoom zoombtn"></div></caption>
-        <tr><td id="qr_layername"></td></tr>
-      </table>
+        <table class="table" id="qr_layername_table">
+          <caption>Capa <div id="zoomtolayer" class="action-zoom zoombtn"></div></caption>
+          <tr><td id="qr_layername"></td></tr>
+        </table>
 
-      <table id="qr_attrs_table">
-        <caption>Attributes</caption>
-      </table>
+        <table class="table" id="qr_attrs_table">
+          <caption>Atributos</caption>
+        </table>
 
-      <!-- camera actions and measure tool -->
-      <div id="orbitbtn" class="action-btn action-orbit">Orbit</div>
-      <div id="measurebtn" class="action-btn">Measure distance</div>
-    </div>
+        <!-- acciones de cámara y herramienta de medición -->
+        <div id="orbitbtn" class="action-btn action-orbit btn color-verde">Órbita</div>
+        <div id="measurebtn" class="action-btn btn color-verde">Medir distancia</div>
+      </div>
 
-    <!-- page info -->
-    <div id="pageinfo">
-      <h1>Current View URL</h1>
-      <div><input id="urlbox" type="text"></div>
+      <!-- información de página -->
+      <div id="pageinfo">
+        <!-- <h1>URL de Vista Actual</h1> -->
+        <!-- <div><input id="urlbox" type="text"></div> -->
 
-      <h1>Usage</h1>
-      <table id="usage">
-        <tr><td colspan="2" class="star">Mouse</td></tr>
-        <tr><td>Left button + Move</td><td>Orbit</td></tr>
-        <tr><td>Mouse Wheel</td><td>Zoom</td></tr>
-        <tr><td>Right button + Move</td><td>Pan</td></tr>
+        <h1 class="">Uso</h1>
+        <table id="usage">
+          <tr><td colspan="2" class="star">Ratón</td></tr>
+          <tr><td>Botón izquierdo + Mover</td><td>Órbita</td></tr>
+          <tr><td>Rueda del ratón</td><td>Zoom</td></tr>
+          <tr><td>Botón derecho + Mover</td><td>Desplazar</td></tr>
 
-        <tr><td colspan="2" class="star">Keys</td></tr>
-        <tr><td>Arrow keys</td><td>Move Horizontally</td></tr>
-        <tr><td>Shift + Arrow keys</td><td>Orbit</td></tr>
-        <tr><td>Ctrl + Arrow keys</td><td>Rotate</td></tr>
-        <tr><td>Shift + Ctrl + Up / Down</td><td>Zoom In / Out</td></tr>
-        <tr><td>L</td><td>Toggle Label Visibility</td></tr>
-        <tr><td>R</td><td>Start / Stop Orbit Animation</td></tr>
-        <tr><td>W</td><td>Wireframe Mode</td></tr>
-        <tr><td>Shift + R</td><td>Reset Camera Position</td></tr>
-        <tr><td>Shift + S</td><td>Save Image</td></tr>
-      </table>
+          <tr><td colspan="2" class="star">Teclas</td></tr>
+          <tr><td>Teclas de flecha</td><td>Mover Horizontalmente</td></tr>
+          <tr><td>Mayúsculas + Teclas de flecha</td><td>Órbita</td></tr>
+          <tr><td>Ctrl + Teclas de flecha</td><td>Rotar</td></tr>
+          <tr><td>Mayúsculas + Ctrl + Arriba / Abajo</td><td>Acercar / Alejar</td></tr>
+          <tr><td>L</td><td>Alternar Visibilidad de Etiquetas</td></tr>
+          <tr><td>R</td><td>Iniciar / Detener Animación de Órbita</td></tr>
+          <tr><td>W</td><td>Modo Alambre</td></tr>
+          <tr><td>Mayúsculas + R</td><td>Restablecer Posición de Cámara</td></tr>
+          <tr><td>Mayúsculas + S</td><td>Guardar Imagen</td></tr>
+        </table>
 
-      <h1>About</h1>
-      <div id="about"><img src="./Qgis2threejs.png">
-        This page was made with <a href="https://www.qgis.org/">QGIS</a> and <a href="https://github.com/minorua/Qgis2threejs">Qgis2threejs</a> plugin (version 2.8).
-        <div>Powered by <a href="https://threejs.org/">three.js</a>
-        <span id="lib_proj4js"> and <a href="https://trac.osgeo.org/proj4js/">Proj4js</a></span>.</div>
+        <h1>Acerca de</h1>
+        <div id="about"><img src="./Qgis2threejs.png">
+          Esta página fue creada con <a href="https://www.qgis.org/">QGIS</a> y el complemento <a href="https://github.com/minorua/Qgis2threejs">Qgis2threejs</a> (versión 2.8).
+            Desarrollado con <a href="https://threejs.org/">three.js.</a>
+            <span id="lib_proj4js"> y <a href="https://trac.osgeo.org/proj4js/">Proj4js</a></span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- progress bar -->
-<div id="progress"><div id="progressbar"></div></div>
+  <!-- progress bar -->
+  <div id="progress"><div id="progressbar"></div></div>
 
-<!-- menu -->
-<div id="toolbtns">
-  <div id="layerbtn"></div>
-  <div id="animbtn" class="hidden"></div>
-  <div id="infobtn"></div>
-</div>
-
-<!-- header and footer -->
-<div id="header"></div>
-<div id="footer"></div>
-
-<!-- layer panel -->
-<div id="layerpanel">
-  <div id="layerlist"></div>
-</div>
-
-<!-- animation -->
-<div id="narrativebox" class="ef1">
-  <div id="narbody">
-
+  <!-- menu -->
+  <div id="header" class="navbar navbar-expand-lg bg-light border-bottom" style="width: 100%;">
+    <div class="container-fluid">
+      <img src="logo.jpg" alt="Logo" height="50" class="d-inline-block align-text-top">
+      <a class="navbar-brand m-2">
+        Precipitaciones y Elevación en Buenos Aires
+      </a>
+      <button style="margin:auto" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <div class="btn nav-link" id="infobtn"><img height=45 src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjbGFzcz0ibGF5ZXIiIHN0cm9rZT0iIzAwMCI+PGNpcmNsZSBjeD0iNTAuMiIgY3k9IjUwIiByPSIzNiIgc3Ryb2tlLXdpZHRoPSIxMCIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMzAiIHI9IjUiLz48cGF0aCBkPSJNNDIgNDRoOHYyNW0tOCAyaDE2IiBzdHJva2Utd2lkdGg9IjgiIGZpbGw9Im5vbmUiLz48L2c+PC9zdmc+"> Información</div>
+          </li>
+          <li class="nav-item">
+            <div class="btn nav-link" id="layerbtn"><img height=45 src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgdmlld0JveD0iMCAwIDEwMCAxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiA8ZyBjbGFzcz0ibGF5ZXIiPgogIDx0aXRsZT5MYXllciAxPC90aXRsZT4KICA8cGF0aCBkPSJtNTAsNDVsLTQwLDIwbDQwLDIwbDQwLC0yMGwtNDAsLTIweiIgZmlsbD0iI2ZmZmZmZiIgaWQ9InN2Z18xMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjgiLz4KICA8cGF0aCBkPSJtNTAsMzBsLTQwLDIwbDQwLDIwbDQwLC0yMGwtNDAsLTIweiIgZmlsbD0iI2ZmZmZmZiIgaWQ9InN2Z185IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iOCIgdHJhbnNmb3JtPSJtYXRyaXgoMSAwIDAgMSAwIDApIi8+CiAgPHBhdGggZD0ibTUwLDE1bC00MCwyMGw0MCwyMGw0MCwtMjBsLTQwLC0yMHoiIGZpbGw9IiNmZmZmZmYiIGlkPSJzdmdfNCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjgiLz4KIDwvZz4KPC9zdmc+"> Capas</div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div id="nextbtn"></div>
-</div>
+  <footer id="footer" style="width:100%;" class="d-flex flex-wrap justify-content-between align-items-center border-top bg-light p-2">
+    <div class="col-md-4 d-flex align-items-center m-1">
+      <div class="m-1 me-2mb-md-0 text-body-secondary text-decoration-none lh-1" aria-label="Bootstrap">
+        <img src="Qgis2threejs.png" width="40" height="40" style="margin-left: 1em">
+        <span class="text-body-secondary" style="margin-left: 1em;"><strong>2025 - Franco Altamira</strong></span>
+      </div>
+      
+    </div>
+  </footer>
 
-<script>
-Q3D.Config.allVisible = true;
-Q3D.Config.viewpoint = {lookAt:{x:-59.57280341768388,y:-33.3899628075056,z:-1.8549157796807563e-14},pos:{x:-61.00919636499433,y:-43.26339170917841,z:13712.867933930609}};
-Q3D.Config.localMode = true;
+  <!-- layer panel -->
+  <div id="layerpanel" class="btn">
+    <div id="layerlist"></div>
+  </div>
 
-var container = document.getElementById("view"),
-    app = Q3D.application,
-    gui = Q3D.gui;
+  <!-- animation -->
+  <div id="narrativebox" class="ef1">
+    <div id="narbody">
+    </div>
+    <div id="nextbtn"></div>
+  </div>
 
-app.init(container);       // initialize viewer
 
-// load the scene
-app.loadSceneFile("./data/index/scene.js", function (scene) {
-  // scene file has been loaded
-  app.start();
-}, function (scene) {
-  // all relevant files have been loaded
+  <img src="leyenda2.png" id="leyenda-imagen" alt="Leyenda">
 
-});
-</script>
+  <script src="configurar_mapa.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,33 @@
+#popup, #layerpanel {
+  left: 0px;
+  top: 5em;
+}
+/* Estilo para la imagen fija */
+#leyenda-imagen {
+  position: fixed;
+  right: 0px; /* Posición horizontal desde la derecha */
+  top: 50%; /* Centrado verticalmente */
+  transform: translateY(-50%); /* Ajuste para centrar verticalmente */
+  width: 200px; /* Ancho de la imagen */
+  z-index: 900; /* Asegura que la imagen esté encima de otros elementos */
+  height: 100%;
+}
+/* Estilo para el navbar */
+.navbar {
+  z-index: 1000; /* Asegura que el navbar esté encima de la imagen */
+}
+
+/* Estilo para el footer */
+#footer {
+  z-index: 1000; /* Asegura que el footer esté encima de la imagen */
+  position: absolute;
+  bottom: 0px;
+}
+
+.color-verde{
+  background-color: #80bc81;
+}
+
+.color-verde:hover{
+  background-color: #50ab50;
+}

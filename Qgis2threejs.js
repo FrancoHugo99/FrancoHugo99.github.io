@@ -105,7 +105,8 @@ Q3D.Config = {
 	// others
 	qmarker: {
 		radius: 0.004,
-		color: 0xffff00,
+		color: 0xff2d00,
+		// color: 0xffff00,
 		opacity: 0.8,
 		k: 0.2    // size factor for ortho camera
 	},
@@ -113,12 +114,14 @@ Q3D.Config = {
 	measure: {
 		marker: {
 			radius: 0.004,
-			color: 0xffff00,
-			opacity: 0.5
+			color: 0xff2d00,
+			// color: 0xffff00,
+			opacity: 0.8
 			/* k: 0.2 */
 		},
 		line: {
-			color: 0xffff00
+			color: 0xff2d00,
+			// color: 0xffff00,
 		}
 	},
 
@@ -1469,13 +1472,13 @@ Q3D.E = function (id) {
 					dz = (path[path.length - 1].z - path[0].z) / zScale;
 				}
 
-				var html = '<table class="measure">';
-				html += "<tr><td>Total distance:</td><td>" + this.formatLength(total) + " m</td><td></td></tr>";
-				html += "<tr><td>Horizontal distance:</td><td>" + this.formatLength(totalxy) + " m</td><td></td></tr>";
-				html += "<tr><td>Vertical difference:</td><td>" + this.formatLength(dz) + ' m</td><td><span class="tooltip tooltip-btn" data-tooltip="elevation difference between start point and end point">?</span></td></tr>';
+				var html = '<table class="measure table">';
+				html += "<tr><td>Distancia total:</td><td>" + this.formatLength(total) + " m</td><td></td></tr>";
+				html += "<tr><td>Distancia horizontal:</td><td>" + this.formatLength(totalxy) + " m</td><td></td></tr>";
+				html += "<tr><td>Diferencia vertical:</td><td>" + this.formatLength(dz) + ' m</td><td><span class="tooltip tooltip-btn" data-tooltip="elevation difference between start point and end point">?</span></td></tr>';
 				html += "</table>";
 
-				gui.popup.show(html, "Measure distance");
+				gui.popup.show(html, "Medir distancia");
 			}
 		};
 	})();
@@ -1812,7 +1815,8 @@ Q3D.E = function (id) {
 				});
 
 				// opacity slider
-				e = CE("div", item, "Opacity: <input type='range'><output></output>");
+				// e = CE("div", item, "Opacity: <input type='range'><output></output>");
+				e = CE("div", item, "Opacidad: <input type='range'><output></output>");
 				slider = e.querySelector("input[type=range]");
 
 				var label = e.querySelector("output");
